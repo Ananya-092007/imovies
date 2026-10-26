@@ -1,6 +1,8 @@
 import BackendStatus from "./BackendStatus";
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 
 const movies = [
@@ -99,7 +101,7 @@ function App() {
   const [backendMovies, setBackendMovies] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/movies")
+    fetch(`${API_BASE_URL}/api/movies`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch movies");
@@ -143,7 +145,7 @@ async function confirmDemoBooking(event) {
   setBookingMessage("Saving your booking...");
 
   try {
-    const response = await fetch("http://localhost:5000/api/bookings", {
+    const response = await fetch(`${API_BASE_URL}/api/bookings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
